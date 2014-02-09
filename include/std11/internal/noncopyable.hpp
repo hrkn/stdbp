@@ -13,7 +13,7 @@ namespace std11
 
 class noncopyable
 {
-public:
+protected:
 	noncopyable(void)
 	{
 	}
