@@ -1,7 +1,7 @@
 GTEST_DIR = ./gtest
 PWD = $(shell pwd)
 
-UNIT_TESTERS = threadTest utilityTest
+UNIT_TESTERS = threadTest utilityTest algorithmTest
 UNIT_TESTER_OBJECTS = $(addsuffix .o, $(UNIT_TESTERS))
 UNIT_TEST_COVERAGE_DATA = $(addsuffix .gcda, $(UNIT_TESTERS)) $(addsuffix .gcno, $(UNIT_TESTERS)) 
 COVERAGE_INFO = coverage.info
