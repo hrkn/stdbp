@@ -23,7 +23,8 @@ struct functor
 };
 
 
-struct hoge {
+struct hoge
+{
 	void func(int value)
 	{
 		std::cout << value << std::endl;
@@ -51,7 +52,8 @@ int main()
 		v.push_back(1);
 		v.push_back(4);
 
-		std::for_each(v.begin(), v.end(), bind(foo, 0, _1, 9)); // fooの第1引数を0, 第3引数を9に固定
+		// fooの第1引数を0, 第3引数を9に固定
+		std::for_each(v.begin(), v.end(), bind(foo, 0, _1, 9));
 			// 0,3,9
 			// 0,1,9
 			// 0,4,9

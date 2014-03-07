@@ -4,7 +4,7 @@
 using namespace std;
 using namespace std11;
 
-void disp_hello()
+void say_hello()
 {
 	cout << "Hello" << endl;
 }
@@ -14,7 +14,7 @@ bool is_even(int value)
 	return value % 2 == 0;
 }
 
-struct disp_obj
+struct display_object
 {
 	void operator()(int value, double pi) const
 	{
@@ -39,7 +39,7 @@ public:
 int main()
 {
 	// void (*)(void)
-	function<void(void)> func0 = disp_hello;
+	function<void(void)> func0 = say_hello;
 	func0(); // disp_hello(); ... Hello
 
 	// bool (*)(int)
@@ -47,7 +47,7 @@ int main()
 	cout << "result of func1(2) = " << func1(2) << endl; // is_even(2);
 
 	// 関数オブジェクト
-	function<void(int, double)> func_obj = disp_obj();
+	function<void(int, double)> func_obj = display_object();
 	func_obj(5, 3.14); // disp_obj::operator(5, 3.14);
 
 	// メンバ関数
@@ -59,12 +59,13 @@ int main()
 	function<int()> static_member_function = &A::static_func;
 	cout << "A::static_func() = " << static_member_function() << endl;
 
-	// empty function object call
+	// 関数が未割当のfunctionオブジェクト実行
 	function<void()> f;
 	try
 	{
 		f();
-	} catch (std11::bad_function_call const&)
+	}
+	catch (std11::bad_function_call const&)
 	{
 		cout << "bad function call!" << endl;
 	}
