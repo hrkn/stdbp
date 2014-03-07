@@ -217,7 +217,7 @@ TEST_F(AlgorithmTest, MutatingOperations_MoveBackward)
 	}
 }
 
-TEST_F(AlgorithmTest, MutatingOperations_Shuffle)
+TEST_F(AlgorithmTest, DISABLED_MutatingOperations_Shuffle)
 {
 	// TODO write test after "std11/random.hpp" implemented
 }
@@ -231,14 +231,14 @@ TEST_F(AlgorithmTest, MutatingOperations_IsPartitioned)
 
 TEST_F(AlgorithmTest, MutatingOperations_PartitionCopy)
 {
-	Vector evens;
-	Vector odds;
+	Vector copied_evens;
+	Vector copied_odds;
 
 	std11::partition_copy(mixed_.begin(), mixed_.end(),
-			std::back_inserter(evens), std::back_inserter(odds), is_even_);
-	ASSERT_EQ(mixed_.size(), evens.size() + odds.size());
-	ASSERT_TRUE(all_of_(evens.begin(), evens.end(), is_even_));
-	ASSERT_TRUE(all_of_(odds.begin(), odds.end(), is_odd_));
+			std::back_inserter(copied_evens), std::back_inserter(copied_odds), is_even_);
+	ASSERT_EQ(mixed_.size(), copied_evens.size() + copied_odds.size());
+	ASSERT_TRUE(all_of_(copied_evens.begin(), copied_evens.end(), is_even_));
+	ASSERT_TRUE(all_of_(copied_odds.begin(), copied_odds.end(), is_odd_));
 }
 
 TEST_F(AlgorithmTest, MutatingOperations_PartitionPoint)
@@ -364,5 +364,3 @@ AlgorithmTest::pred_type AlgorithmTest::is_odd_ = ::is_odd<Vector::value_type>;
 AlgorithmTest::test_type AlgorithmTest::all_of_ = std11::all_of<iterator_type, pred_type>;
 AlgorithmTest::test_type AlgorithmTest::any_of_ = std11::any_of<iterator_type, pred_type>;
 AlgorithmTest::test_type AlgorithmTest::none_of_ = std11::none_of<iterator_type, pred_type>;
-
-
