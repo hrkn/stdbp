@@ -10,11 +10,19 @@
 
 #include "std11/_config.hpp"
 
-#if !STDBP_CPP11_ENABLED
+namespace std11
+{
 
 class nullptr_t
 {
+	// std requires: sizeof(nullptr_t) == sizeof(void*)
+	void* pad_;
+
 public:
+	nullptr_t(void): pad_(0)
+	{
+	}
+
 	template <typename T>
 	operator T*() const // 任意の非メンバ型のヌルポインタや、
 	{
@@ -29,11 +37,12 @@ public:
 
 private:
 	void operator&() const;  // アドレスを取得することができない。
-
 };
 
-nullptr_t const nullptr = {};
+}  // namespace std11
 
+#if !STDBP_CPP11_ENABLED
+std11::nullptr_t const nullptr;
 #endif
 
 #endif /* STDBP_STD11_LANGUAGE_EXTENSION_NULLPTR_HPP_ */
