@@ -8,6 +8,10 @@
 #ifndef STDBP_STD11_LANGUAGE_EXTENSION_NULLPTR_HPP_
 #define STDBP_STD11_LANGUAGE_EXTENSION_NULLPTR_HPP_
 
+#include "std11/_config.hpp"
+
+#if !STDBP_CPP11_ENABLED
+
 class nullptr_t
 {
 public:
@@ -29,5 +33,7 @@ private:
 };
 
 nullptr_t const nullptr = {};
+
+#endif
 
 #endif /* STDBP_STD11_LANGUAGE_EXTENSION_NULLPTR_HPP_ */
