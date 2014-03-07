@@ -6,7 +6,7 @@ QUIET = @
 
 TARGETS = $(shell find -name "*.cpp" | while read file; do echo "$${file%.*}"; done)
 
-all: sources.mk $(TARGETS)
+all: .sources.mk $(TARGETS)
 
 clean:
 	rm -f $(TARGETS) $(addsuffix .o,$(TARGETS))
@@ -24,8 +24,8 @@ mutex/%:  LD_FLAGS += -lpthread
 showtarget:
 	@ find -name "*.cpp" | while read file; do echo "$${file%.*}"; done
 
-.PHONY: sources.mk
-sources.mk:
+.PHONY: .sources.mk
+.sources.mk:
 	$(QUIET) rm -f $@
 	$(QUIET) echo -n "samples: " >>$@ && echo $(TARGETS) >>$@ && echo >>$@
 	$(QUIET) find -name "*.cpp" | \
@@ -35,4 +35,4 @@ sources.mk:
 	$(QUIET) cat $@.bak | perl -p -e 's,^(.+?)\.o: (.+?)/\1\.c.*,$$2/$$&,;' >$@
 	$(QUIET) rm $@.bak
 
--include sources.mk
+-include .sources.mk
