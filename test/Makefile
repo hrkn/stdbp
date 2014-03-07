@@ -1,7 +1,8 @@
 GTEST_DIR = ./gtest
 PWD = $(shell pwd)
 
-UNIT_TESTERS = threadTest utilityTest algorithmTest
+UNIT_TESTERS = threadTest utilityTest algorithmTest cstddefTest
+UNIT_TESTER_EXE = $(addsuffix .exe,$(UNIT_TESTERS))
 UNIT_TESTER_OBJECTS = $(addsuffix .o, $(UNIT_TESTERS))
 UNIT_TEST_COVERAGE_DATA = $(addsuffix .gcda, $(UNIT_TESTERS)) $(addsuffix .gcno, $(UNIT_TESTERS)) 
 COVERAGE_INFO = coverage.info
@@ -14,12 +15,12 @@ CXXFLAGS = -g3 -O0 -Wall -std=c++98 $(GTEST_INCLUDES) -I$(PWD)/../include -pthre
 LIBS = 
 LDFLAGS = $(addprefix -l,$(LIBS)) -pthread -coverage
 
-all: gtest-all.o runner.o $(UNIT_TESTERS)
+all: gtest-all.o runner.o $(UNIT_TESTER_EXE)
 
 clean:
 	rm -f *.gcda *.gcno *.o $(COVERAGE_INFO)
 	rm -rf $(COVERAGE_REPORT_DIR)
-	rm -f $(UNIT_TESTERS)
+	rm -f $(UNIT_TESTER_EXE)
 	rm -f sources.mk
 
 analyse-coverage: $(UNIT_TEST_COVERAGE_DATA)
@@ -34,9 +35,11 @@ runner.o: runner.cpp
 gtest-all.o: $(GTEST_DIR)/src/gtest-all.cc
 	g++ $(GTEST_BUILD_INCLUDES) -c $<
 
-$(UNIT_TESTERS): runner.o gtest-all.o
-	make $@.o
-	g++ -o $@ $@.o $^ $(LDFLAGS)
+$(UNIT_TESTER_EXE): runner.o gtest-all.o
+
+%.exe: %.o
+	make $(@:.exe=.o)
+	g++ -o $@ $^ $(LDFLAGS)
 
 %.o: %.cpp
 	g++ $(CXXFLAGS) -c $<
