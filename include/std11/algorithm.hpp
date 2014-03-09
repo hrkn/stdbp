@@ -221,7 +221,7 @@ partition_copy(InputIterator first, InputIterator last,
 		}
 	}
 
-	return make_pair(out_true, out_false);
+	return ::std11::make_pair(out_true, out_false);
 }
 
 template <class ForwardIterator, class Predicate>
@@ -421,7 +421,7 @@ minmax_element(ForwardIterator first, ForwardIterator last, Comparator comp)
 {
 	if (first == last)
 	{
-		return make_pair(last, last);
+		return ::std11::make_pair(last, last);
 	}
 
     ForwardIterator min_result = first;
@@ -440,7 +440,7 @@ minmax_element(ForwardIterator first, ForwardIterator last, Comparator comp)
 		}
 	}
 
-	return make_pair(min_result, max_result);
+	return ::std11::make_pair(min_result, max_result);
 }
 
 }  // namespace std11
