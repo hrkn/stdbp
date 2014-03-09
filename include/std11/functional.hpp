@@ -12,11 +12,11 @@
 #include <exception>
 
 #include "std11/_config.hpp"
-#include "std11/utility.hpp"
 #include "std11/type_traits.hpp"
 #include "std11/memory.hpp"
 #include "std11/internal/functional/bind.hpp"
 #include "std11/internal/functional/mem_fn.hpp"
+#include "std11/language_extension/rvalue_reference.hpp"
 
 #define STDBP_STD11_TEMPLATE_PARAMS_1  class T0
 #define STDBP_STD11_TEMPLATE_PARAMS_2  class T0, class T1
