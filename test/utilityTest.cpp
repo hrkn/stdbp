@@ -10,6 +10,7 @@
 #include "gtest/gtest.h"
 
 #include "std11/utility.hpp"
+#include "std11/functional.hpp"
 
 class Movable
 {
@@ -97,4 +98,19 @@ TEST_F(UtilityTest, MoveAssignmentFromTempObject)
 	EXPECT_EQ(int(), dest.getValue());
 	dest = std11::move(Movable(VALUE));
 	EXPECT_EQ(VALUE, dest.getValue());
+}
+
+TEST_F(UtilityTest, MakePair)
+{
+	{
+		int x = 1, y = 2;
+		std11::pair<int&, int> p = std11::make_pair(std11::ref(x), y);
+
+		ASSERT_EQ(x, p.first);
+		ASSERT_EQ(y, p.second);
+		x = 10, y = 20;
+		ASSERT_EQ(x, p.first);
+		ASSERT_NE(y, p.second);
+		ASSERT_EQ(2, p.second);
+	}
 }
