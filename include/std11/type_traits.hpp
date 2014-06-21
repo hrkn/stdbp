@@ -38,11 +38,11 @@ namespace detail
 
 struct sfinae_types
 {
-	typedef char one;
+	typedef char yes;
 	typedef struct
 	{
 		char arr[2];
-	} two;
+	} no;
 };
 
 template<typename Type>
@@ -50,13 +50,13 @@ struct in_array: public sfinae_types
 {
 private:
 	template<typename Up>
-	static one test(Up (*)[1]);
+	static yes test(Up (*)[1]);
 
 	template<typename >
-	static two test(...);
+	static no test(...);
 
 public:
-	static const bool value = sizeof(test<Type>(0)) == 1;
+	static const bool value = sizeof(test<Type>(0)) == sizeof(yes);
 };
 
 template<typename Type>
@@ -64,13 +64,13 @@ struct is_union_or_class_helper: public sfinae_types
 {
 private:
 	template<typename Up>
-	static one test(int Up::*);
+	static yes test(int Up::*);
 
 	template<typename >
-	static two test(...);
+	static no test(...);
 
 public:
-	static const bool value = sizeof(test<Type>(0)) == 1;
+	static const bool value = sizeof(test<Type>(0)) == sizeof(yes);
 };
 
 template<typename Type>
